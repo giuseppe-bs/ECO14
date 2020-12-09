@@ -1,0 +1,69 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"9 ./arCondicionado.h
+[; ;./arCondicionado.h: 9: char estado = 0;
+[v _estado `uc ~T0 @X0 1 e ]
+[i _estado
+-> -> 0 `i `uc
+]
+"12
+[; ;./arCondicionado.h: 12: char temperatura = 25;
+[v _temperatura `uc ~T0 @X0 1 e ]
+[i _temperatura
+-> -> 25 `i `uc
+]
+"13 arCondicionado.c
+[; ;arCondicionado.c: 13: void ligarDesligar(char i){
+[v _ligarDesligar `(v ~T0 @X0 1 ef1`uc ]
+{
+[e :U _ligarDesligar ]
+[v _i `uc ~T0 @X0 1 r1 ]
+[f ]
+"14
+[; ;arCondicionado.c: 14:     estado = i;
+[e = _estado _i ]
+"15
+[; ;arCondicionado.c: 15: }
+[e :UE 1 ]
+}
+"27
+[; ;arCondicionado.c: 27: void aumentarTemp(char a){
+[v _aumentarTemp `(v ~T0 @X0 1 ef1`uc ]
+{
+[e :U _aumentarTemp ]
+[v _a `uc ~T0 @X0 1 r1 ]
+[f ]
+"30
+[; ;arCondicionado.c: 30:     if(temperatura + a > 35) temperatura = 35;
+[e $ ! > + -> _temperatura `i -> _a `i -> 35 `i 3  ]
+[e = _temperatura -> -> 35 `i `uc ]
+[e $U 4  ]
+"33
+[; ;arCondicionado.c: 33:     else temperatura += a;
+[e :U 3 ]
+[e =+ _temperatura -> _a `uc ]
+[e :U 4 ]
+"34
+[; ;arCondicionado.c: 34: }
+[e :UE 2 ]
+}
+"46
+[; ;arCondicionado.c: 46: void diminuirTemp(char d){
+[v _diminuirTemp `(v ~T0 @X0 1 ef1`uc ]
+{
+[e :U _diminuirTemp ]
+[v _d `uc ~T0 @X0 1 r1 ]
+[f ]
+"49
+[; ;arCondicionado.c: 49:     if(temperatura - d < 15) temperatura = 15;
+[e $ ! < - -> _temperatura `i -> _d `i -> 15 `i 6  ]
+[e = _temperatura -> -> 15 `i `uc ]
+[e $U 7  ]
+"52
+[; ;arCondicionado.c: 52:     else temperatura -= d;
+[e :U 6 ]
+[e =- _temperatura -> _d `uc ]
+[e :U 7 ]
+"53
+[; ;arCondicionado.c: 53: }
+[e :UE 5 ]
+}

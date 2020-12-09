@@ -1,0 +1,181 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"5 ./porta.h
+[; ;./porta.h: 5: char estadoPorta = 0;
+[v _estadoPorta `uc ~T0 @X0 1 e ]
+[i _estadoPorta
+-> -> 0 `i `uc
+]
+"8
+[; ;./porta.h: 8: char estadoTranca = 0;
+[v _estadoTranca `uc ~T0 @X0 1 e ]
+[i _estadoTranca
+-> -> 0 `i `uc
+]
+"11
+[; ;./porta.h: 11: int senha = -1;
+[v _senha `i ~T0 @X0 1 e ]
+[i _senha
+-U -> 1 `i
+]
+"12 porta.c
+[; ;porta.c: 12: int pow(int bas, int exp){
+[v _pow `(i ~T0 @X0 1 ef2`i`i ]
+{
+[e :U _pow ]
+[v _bas `i ~T0 @X0 1 r1 ]
+[v _exp `i ~T0 @X0 1 r2 ]
+[f ]
+"13
+[; ;porta.c: 13:     int resp = 1;
+[v _resp `i ~T0 @X0 1 a ]
+[e = _resp -> 1 `i ]
+"14
+[; ;porta.c: 14:     for (exp; exp>0; exp--)
+{
+[e _exp ]
+[e $ > _exp -> 0 `i 2  ]
+[e $U 3  ]
+[e :U 2 ]
+"15
+[; ;porta.c: 15:         resp = resp * bas;
+[e = _resp * _resp _bas ]
+[e -- _exp -> 1 `i ]
+[e $ > _exp -> 0 `i 2  ]
+[e :U 3 ]
+}
+"16
+[; ;porta.c: 16:     return resp;
+[e ) _resp ]
+[e $UE 1  ]
+"17
+[; ;porta.c: 17: }
+[e :UE 1 ]
+}
+"30
+[; ;porta.c: 30: int defineSenha(int entrada){
+[v _defineSenha `(i ~T0 @X0 1 ef1`i ]
+{
+[e :U _defineSenha ]
+[v _entrada `i ~T0 @X0 1 r1 ]
+[f ]
+"31
+[; ;porta.c: 31:     senha = entrada;
+[e = _senha _entrada ]
+"32
+[; ;porta.c: 32:     return senha;
+[e ) _senha ]
+[e $UE 5  ]
+"33
+[; ;porta.c: 33: }
+[e :UE 5 ]
+}
+"47
+[; ;porta.c: 47: char abreFecha(char comando){
+[v _abreFecha `(uc ~T0 @X0 1 ef1`uc ]
+{
+[e :U _abreFecha ]
+[v _comando `uc ~T0 @X0 1 r1 ]
+[f ]
+"49
+[; ;porta.c: 49:     if(!comando){
+[e $ ! ! != -> _comando `i -> 0 `i 7  ]
+{
+"50
+[; ;porta.c: 50:         estadoPorta = 0;
+[e = _estadoPorta -> -> 0 `i `uc ]
+"51
+[; ;porta.c: 51:         return 1;
+[e ) -> -> 1 `i `uc ]
+[e $UE 6  ]
+"52
+[; ;porta.c: 52:     }
+}
+[e $U 8  ]
+"54
+[; ;porta.c: 54:     else{
+[e :U 7 ]
+{
+"57
+[; ;porta.c: 57:         if(estadoTranca){
+[e $ ! != -> _estadoTranca `i -> 0 `i 9  ]
+{
+"58
+[; ;porta.c: 58:             estadoPorta=1;
+[e = _estadoPorta -> -> 1 `i `uc ]
+"59
+[; ;porta.c: 59:             return 1;
+[e ) -> -> 1 `i `uc ]
+[e $UE 6  ]
+"60
+[; ;porta.c: 60:         }
+}
+[e :U 9 ]
+"64
+[; ;porta.c: 64:         return 0;
+[e ) -> -> 0 `i `uc ]
+[e $UE 6  ]
+"65
+[; ;porta.c: 65:     }
+}
+[e :U 8 ]
+"66
+[; ;porta.c: 66: }
+[e :UE 6 ]
+}
+"78
+[; ;porta.c: 78: void tranca(){
+[v _tranca `(v ~T0 @X0 1 ef ]
+{
+[e :U _tranca ]
+[f ]
+"79
+[; ;porta.c: 79:     estadoTranca = 0;
+[e = _estadoTranca -> -> 0 `i `uc ]
+"80
+[; ;porta.c: 80: }
+[e :UE 10 ]
+}
+"95
+[; ;porta.c: 95: char destranca(int entrada){
+[v _destranca `(uc ~T0 @X0 1 ef1`i ]
+{
+[e :U _destranca ]
+[v _entrada `i ~T0 @X0 1 r1 ]
+[f ]
+"99
+[; ;porta.c: 99:     if(!estadoTranca){
+[e $ ! ! != -> _estadoTranca `i -> 0 `i 12  ]
+{
+"103
+[; ;porta.c: 103:         if(entrada == senha){
+[e $ ! == _entrada _senha 13  ]
+{
+"104
+[; ;porta.c: 104:             estadoTranca = 1;
+[e = _estadoTranca -> -> 1 `i `uc ]
+"105
+[; ;porta.c: 105:             return 1;
+[e ) -> -> 1 `i `uc ]
+[e $UE 11  ]
+"106
+[; ;porta.c: 106:         }else
+}
+[e $U 14  ]
+[e :U 13 ]
+"110
+[; ;porta.c: 110:         return 0;
+[e ) -> -> 0 `i `uc ]
+[e $UE 11  ]
+[e :U 14 ]
+"111
+[; ;porta.c: 111:     }
+}
+[e :U 12 ]
+"114
+[; ;porta.c: 114:     return 1;
+[e ) -> -> 1 `i `uc ]
+[e $UE 11  ]
+"115
+[; ;porta.c: 115: }
+[e :UE 11 ]
+}

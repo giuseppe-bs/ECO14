@@ -1,0 +1,201 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"5 ./delay.h
+[; ;./delay.h: 5: void delay_ms(int);
+[v _delay_ms `(v ~T0 @X0 0 ef1`i ]
+"13 ./porta.h
+[; ;./porta.h: 13: int pow(int ,int);
+[v _pow `(i ~T0 @X0 0 ef2`i`i ]
+"5 ./ssd.h
+[; ;./ssd.h: 5: static const int num[10] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x67};
+[v _num `Ci ~T0 @X0 -> 10 `i s ]
+[i _num
+:U ..
+-> 63 `i
+-> 6 `i
+-> 91 `i
+-> 79 `i
+-> 102 `i
+-> 109 `i
+-> 125 `i
+-> 7 `i
+-> 127 `i
+-> 103 `i
+..
+]
+"5 ./porta.h
+[; ;./porta.h: 5: char estadoPorta = 0;
+[v _estadoPorta `uc ~T0 @X0 1 e ]
+[i _estadoPorta
+-> -> 0 `i `uc
+]
+"8
+[; ;./porta.h: 8: char estadoTranca = 0;
+[v _estadoTranca `uc ~T0 @X0 1 e ]
+[i _estadoTranca
+-> -> 0 `i `uc
+]
+"11
+[; ;./porta.h: 11: int senha = -1;
+[v _senha `i ~T0 @X0 1 e ]
+[i _senha
+-U -> 1 `i
+]
+"16 ssd.c
+[; ;ssd.c: 16: void printTemp(char temp){
+[v _printTemp `(v ~T0 @X0 1 ef1`uc ]
+{
+[e :U _printTemp ]
+[v _temp `uc ~T0 @X0 1 r1 ]
+[f ]
+"18
+[; ;ssd.c: 18:     (*(volatile __near unsigned char*)0xF80) = 0x00;
+[e = *U -> -> 3968 `i `*VNuc -> -> 0 `i `uc ]
+"19
+[; ;ssd.c: 19:     (*(volatile __near unsigned char*)0xF83) = 0x00;
+[e = *U -> -> 3971 `i `*VNuc -> -> 0 `i `uc ]
+"21
+[; ;ssd.c: 21:     (*(volatile __near unsigned char*)0xF83) = num[temp/10];
+[e = *U -> -> 3971 `i `*VNuc -> *U + &U _num * -> -> / -> _temp `i -> 10 `i `ui `ux -> -> # *U &U _num `ui `ux `uc ]
+"22
+[; ;ssd.c: 22:     (((*(volatile __near unsigned char*)0xF80)) |= (1<<2));
+[e =| *U -> -> 3968 `i `*VNuc -> << -> 1 `i -> 2 `i `uc ]
+"24
+[; ;ssd.c: 24:     delay_ms(15);
+[e ( _delay_ms (1 -> 15 `i ]
+"26
+[; ;ssd.c: 26:     (*(volatile __near unsigned char*)0xF80) = 0x00;
+[e = *U -> -> 3968 `i `*VNuc -> -> 0 `i `uc ]
+"27
+[; ;ssd.c: 27:     (*(volatile __near unsigned char*)0xF83) = 0x00;
+[e = *U -> -> 3971 `i `*VNuc -> -> 0 `i `uc ]
+"29
+[; ;ssd.c: 29:     (*(volatile __near unsigned char*)0xF83) = num[temp % 10];
+[e = *U -> -> 3971 `i `*VNuc -> *U + &U _num * -> -> % -> _temp `i -> 10 `i `ui `ux -> -> # *U &U _num `ui `ux `uc ]
+"30
+[; ;ssd.c: 30:     (((*(volatile __near unsigned char*)0xF80)) |= (1<<3));
+[e =| *U -> -> 3968 `i `*VNuc -> << -> 1 `i -> 3 `i `uc ]
+"32
+[; ;ssd.c: 32:     delay_ms(15);
+[e ( _delay_ms (1 -> 15 `i ]
+"34
+[; ;ssd.c: 34:     (*(volatile __near unsigned char*)0xF80) = 0x00;
+[e = *U -> -> 3968 `i `*VNuc -> -> 0 `i `uc ]
+"35
+[; ;ssd.c: 35:     (*(volatile __near unsigned char*)0xF83) = 0x00;
+[e = *U -> -> 3971 `i `*VNuc -> -> 0 `i `uc ]
+"37
+[; ;ssd.c: 37:     (*(volatile __near unsigned char*)0xF83) = 0x63;
+[e = *U -> -> 3971 `i `*VNuc -> -> 99 `i `uc ]
+"38
+[; ;ssd.c: 38:     (((*(volatile __near unsigned char*)0xF80)) |= (1<<4));
+[e =| *U -> -> 3968 `i `*VNuc -> << -> 1 `i -> 4 `i `uc ]
+"40
+[; ;ssd.c: 40:     delay_ms(15);
+[e ( _delay_ms (1 -> 15 `i ]
+"42
+[; ;ssd.c: 42:     (*(volatile __near unsigned char*)0xF80) = 0x00;
+[e = *U -> -> 3968 `i `*VNuc -> -> 0 `i `uc ]
+"43
+[; ;ssd.c: 43:     (*(volatile __near unsigned char*)0xF83) = 0x00;
+[e = *U -> -> 3971 `i `*VNuc -> -> 0 `i `uc ]
+"45
+[; ;ssd.c: 45:     (*(volatile __near unsigned char*)0xF83) = 0x39;
+[e = *U -> -> 3971 `i `*VNuc -> -> 57 `i `uc ]
+"46
+[; ;ssd.c: 46:     (((*(volatile __near unsigned char*)0xF80)) |= (1<<5));
+[e =| *U -> -> 3968 `i `*VNuc -> << -> 1 `i -> 5 `i `uc ]
+"48
+[; ;ssd.c: 48:     delay_ms(15);
+[e ( _delay_ms (1 -> 15 `i ]
+"50
+[; ;ssd.c: 50:     (*(volatile __near unsigned char*)0xF80) = 0x00;
+[e = *U -> -> 3968 `i `*VNuc -> -> 0 `i `uc ]
+"51
+[; ;ssd.c: 51:     (*(volatile __near unsigned char*)0xF83) = 0x00;
+[e = *U -> -> 3971 `i `*VNuc -> -> 0 `i `uc ]
+"52
+[; ;ssd.c: 52: }
+[e :UE 1 ]
+}
+"65
+[; ;ssd.c: 65: void printSenha(int s, char digitado){
+[v _printSenha `(v ~T0 @X0 1 ef2`i`uc ]
+{
+[e :U _printSenha ]
+[v _s `i ~T0 @X0 1 r1 ]
+[v _digitado `uc ~T0 @X0 1 r2 ]
+[f ]
+"66
+[; ;ssd.c: 66:     char i,j;
+[v _i `uc ~T0 @X0 1 a ]
+[v _j `uc ~T0 @X0 1 a ]
+"67
+[; ;ssd.c: 67:     for(i = 0; i < digitado; i++){
+{
+[e = _i -> -> 0 `i `uc ]
+[e $U 6  ]
+[e :U 3 ]
+{
+"68
+[; ;ssd.c: 68:         (*(volatile __near unsigned char*)0xF80) = 0x00;
+[e = *U -> -> 3968 `i `*VNuc -> -> 0 `i `uc ]
+"69
+[; ;ssd.c: 69:         (*(volatile __near unsigned char*)0xF83) = 0x00;
+[e = *U -> -> 3971 `i `*VNuc -> -> 0 `i `uc ]
+"71
+[; ;ssd.c: 71:         (*(volatile __near unsigned char*)0xF83) = num[(s%pow(10,4-i))/pow(10,3-i)];
+[e = *U -> -> 3971 `i `*VNuc -> *U + &U _num * -> -> / % _s ( _pow (2 , -> 10 `i - -> 4 `i -> _i `i ( _pow (2 , -> 10 `i - -> 3 `i -> _i `i `ui `ux -> -> # *U &U _num `ui `ux `uc ]
+"72
+[; ;ssd.c: 72:         (((*(volatile __near unsigned char*)0xF80)) |= (1<<(i+2)));
+[e =| *U -> -> 3968 `i `*VNuc -> << -> 1 `i + -> _i `i -> 2 `i `uc ]
+"74
+[; ;ssd.c: 74:         delay_ms(15);
+[e ( _delay_ms (1 -> 15 `i ]
+"75
+[; ;ssd.c: 75:     }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e :U 6 ]
+[e $ < -> _i `i -> _digitado `i 3  ]
+[e :U 4 ]
+}
+"76
+[; ;ssd.c: 76:     for(j = i; j < 4;j++){
+{
+[e = _j _i ]
+[e $ < -> _j `i -> 4 `i 7  ]
+[e $U 8  ]
+[e :U 7 ]
+{
+"77
+[; ;ssd.c: 77:         (*(volatile __near unsigned char*)0xF80) = 0x00;
+[e = *U -> -> 3968 `i `*VNuc -> -> 0 `i `uc ]
+"78
+[; ;ssd.c: 78:         (*(volatile __near unsigned char*)0xF83) = 0x00;
+[e = *U -> -> 3971 `i `*VNuc -> -> 0 `i `uc ]
+"80
+[; ;ssd.c: 80:         (*(volatile __near unsigned char*)0xF83) = 0x40;
+[e = *U -> -> 3971 `i `*VNuc -> -> 64 `i `uc ]
+"81
+[; ;ssd.c: 81:         (((*(volatile __near unsigned char*)0xF80)) |= (1<<(j+2)));
+[e =| *U -> -> 3968 `i `*VNuc -> << -> 1 `i + -> _j `i -> 2 `i `uc ]
+"83
+[; ;ssd.c: 83:         delay_ms(15);
+[e ( _delay_ms (1 -> 15 `i ]
+"84
+[; ;ssd.c: 84:     }
+}
+[e ++ _j -> -> 1 `i `uc ]
+[e $ < -> _j `i -> 4 `i 7  ]
+[e :U 8 ]
+}
+"85
+[; ;ssd.c: 85:     (*(volatile __near unsigned char*)0xF80) = 0x00;
+[e = *U -> -> 3968 `i `*VNuc -> -> 0 `i `uc ]
+"86
+[; ;ssd.c: 86:     (*(volatile __near unsigned char*)0xF83) = 0x00;
+[e = *U -> -> 3971 `i `*VNuc -> -> 0 `i `uc ]
+"87
+[; ;ssd.c: 87: }
+[e :UE 2 ]
+}
